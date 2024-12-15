@@ -1,0 +1,137 @@
+## CUSTOM
+
+data/original/norman/*
+data/original/adamson/*
+data/original/dixit/*
+
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Development environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Python-specific
+*.venv
+*.env
+*.egg
+*.egg-info
+dist/
+build/
+*.egg-info/
+# installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pyright type checker
+.pyright/
+
+# PyLint
+.pylint.d/
+
+# Bandit security scanner
+.bandit/
+
+# Test and coverage reports
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+nosetests.xml
+coverage/
+.tox/
+*.pkl
+
+# Translations
+*.mo
+
+# Sphinx documentation
+/docs/_build/
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Model files
+*.h5
+*.ckpt
+
+# Temporary files
+*.tmp
+*.temp
+
+# Ignore any custom/additional data that shouldn't be version controlled
+data/
+results/
+
+# Custom ignore patterns (specify any additional patterns here)
