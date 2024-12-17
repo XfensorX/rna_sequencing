@@ -1,10 +1,12 @@
 ## CUSTOM
 
-data/original/norman/*
-data/original/adamson/*
-data/original/dixit/*
+# Ignore everything in the 'data' directory
+data/**
 
-
+# Allow .py and .ipynb files in the 'data' directory
+!**/*.py
+!**/*.ipynb
+!data/original/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -131,7 +133,6 @@ coverage.xml
 *.temp
 
 # Ignore any custom/additional data that shouldn't be version controlled
-data/
 results/
 
 # Custom ignore patterns (specify any additional patterns here)
