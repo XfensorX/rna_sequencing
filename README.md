@@ -4,6 +4,13 @@ Single Cell RNA Sequencing Project @ Machine Learning for Genomic Data Science @
 
 ## Programming Environment
 
+### Create the Datasets
+
+```shell
+cd data
+python create_splits.py
+```
+
 ### Python Version
 
 We use python 3.10.
