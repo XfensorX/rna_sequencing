@@ -12,10 +12,20 @@ y_pred = y_pred
 y_test = y_test #Shape: (9120, 105)
 #Ab hier keine Veränderung im Code mehr notwendig
 
-run = neptune.init_project(
-    project="JPL/rna-sequencing",
-    api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI1YWM2N2QyNC0yMTFhLTRlNDEtOWZmZi0wNGVhZDViMmY1YmYifQ=="  # Dein Neptune API-Token
-)
+def upload_neptune():
+
+    run = neptune.init_project(
+        project="JPL/rna-sequencing",
+        api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI1YWM2N2QyNC0yMTFhLTRlNDEtOWZmZi0wNGVhZDViMmY1YmYifQ=="  # Dein Neptune API-Token
+    )
+
+    run[f"{name}/{model_bezeichnung}/metrics/accuracy"] = accuracy
+    run[f"{name}/{model_bezeichnung}/metrics/precision"] = precision
+    run[f"{name}/{model_bezeichnung}/metrics/recall"] = recall
+    run[f"{name}/{model_bezeichnung}/metrics/auc"] = auc
+
+    run.stop()
+
 
 def compute_metrics(y_pred, y_test):
     accuracy = metrics.accuracy_score(y_test, y_pred)
@@ -37,15 +47,9 @@ def convert_inputs(y_p):
 
 y_pred_array = convert_inputs(y_pred)
 accuracy, precision, recall, auc = compute_metrics(y_pred_array, y_test)
-
-run[f"{name}/{model_bezeichnung}/metrics/accuracy"] = accuracy
-run[f"{name}/{model_bezeichnung}/metrics/precision"] = precision
-run[f"{name}/{model_bezeichnung}/metrics/recall"] = recall
-run[f"{name}/{model_bezeichnung}/metrics/auc"] = auc
+upload_neptune()
 
 print(f"Accuracy: {accuracy}")
 print(f"Precision: {precision}")
 print(f"Recall: {recall}")
 print(f"AUC: {auc}")
-
-run.stop()
