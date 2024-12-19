@@ -1,15 +1,13 @@
+import os
 import random
 import sys
-import os
 
 import pandas as pd
-import torch
 from sklearn.preprocessing import MultiLabelBinarizer
 
 sys.path.append("../")
 
 from data.original import pertdata as pt  # noqa: E402
-
 
 TEST_SIZE = 0.1
 VALIDATION_SIZE = 0.1

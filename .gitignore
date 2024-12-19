@@ -8,6 +8,10 @@ data/**
 !**/*.ipynb
 !data/original/
 
+**/outputs
+
+**/.neptune
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
