@@ -2,6 +2,9 @@ import os
 from typing import Callable, Optional
 
 import pandas as pd
+import pytorch_lightning as pl
+import torch
+from pytorch_lightning.loggers import NeptuneLogger
 
 from utils.path import get_test_data_path
 
@@ -59,3 +62,15 @@ def evaluate(
         logger.log_metrics(metrics)
 
     return metrics
+
+
+def evaluate_lightning_module(model: pl.LightningModule, neptune_logger: NeptuneLogger):
+    def evaluate_from_dataframe(X: pd.DataFrame):
+        X_tensor = torch.tensor(X.to_numpy())
+        y_pred_tensor = model(X_tensor)
+        return pd.DataFrame(y_pred_tensor.detach().cpu().to(torch.int32))
+
+    evaluate(
+        evaluate_from_dataframe,
+        Logger.from_lightning_neptune_logger(neptune_logger, "evaluation"),
+    )
