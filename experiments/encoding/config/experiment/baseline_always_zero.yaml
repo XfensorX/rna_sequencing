@@ -1,0 +1,6 @@
+name: Baseline - Always Zero
+
+model:
+    _target_: models.baseline.Constant
+    constant_value: 0.0
+    output_dim: 105

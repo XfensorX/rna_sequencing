@@ -37,7 +37,7 @@ class Logger:
         """
 
         def log(name: str, value: Any):
-            neptune_logger.experiment[str(os.path.join(logging_path, name))].log(value)
+            neptune_logger.experiment[str(os.path.join(logging_path, name))] = value
 
         return Logger(log)
 

@@ -1,0 +1,2 @@
+accelerator: mps
+environment: .env

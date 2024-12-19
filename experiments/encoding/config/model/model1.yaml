@@ -1,4 +1,0 @@
-_target_: models.model1.Model1
-input_dim: 5045
-output_dim: 105
-hidden_dim: 20

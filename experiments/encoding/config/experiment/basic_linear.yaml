@@ -1,0 +1,7 @@
+name: Basic Linear
+
+model:
+    _target_: models.linear.AdaptableDenseModel
+    input_dim: 5045
+    hidden_layer_sizes: [300, 300, 300, 300, 300, 300, 150]
+    output_dim: 105
