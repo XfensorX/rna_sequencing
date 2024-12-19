@@ -6,17 +6,17 @@ import torch
 import neptune
 
 # Ggf. zu ändern:
-name = "Luan" #Name
-model_bezeichnung = "Random Forest, n_estimators=4" #Verwendetes Modell und Params, z.B.: FFN, act_func = relu, batch_size = 16, usw...
-y_pred = y_pred 
-y_test = y_test #Shape: (9120, 105)
-#Ab hier keine Veränderung im Code mehr notwendig
+name = "Luan"  # Name
+model_bezeichnung = "Random Forest, n_estimators=4"  # Verwendetes Modell und Params, z.B.: FFN, act_func = relu, batch_size = 16, usw...
+y_pred = y_pred
+y_test = y_test  # Shape: (9120, 105)
+# Ab hier keine Veränderung im Code mehr notwendig
+
 
 def upload_neptune():
 
     run = neptune.init_project(
-        project="JPL/rna-sequencing",
-        api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI1YWM2N2QyNC0yMTFhLTRlNDEtOWZmZi0wNGVhZDViMmY1YmYifQ=="  # Dein Neptune API-Token
+        project="JPL/rna-sequencing", api_token="DUMMY"  # Dein Neptune API-Token
     )
 
     run[f"{name}/{model_bezeichnung}/metrics/accuracy"] = accuracy
@@ -29,11 +29,12 @@ def upload_neptune():
 
 def compute_metrics(y_pred, y_test):
     accuracy = metrics.accuracy_score(y_test, y_pred)
-    precision = metrics.precision_score(y_test, y_pred, average='micro')
-    recall = metrics.recall_score(y_test, y_pred, average='micro')
-    auc = metrics.roc_auc_score(y_test, y_pred, average='macro', multi_class='ovr')
+    precision = metrics.precision_score(y_test, y_pred, average="micro")
+    recall = metrics.recall_score(y_test, y_pred, average="micro")
+    auc = metrics.roc_auc_score(y_test, y_pred, average="macro", multi_class="ovr")
 
     return accuracy, precision, recall, auc
+
 
 def convert_inputs(y_p):
     if isinstance(y_p, torch.Tensor):
@@ -44,6 +45,7 @@ def convert_inputs(y_p):
         return y_p_array
     else:
         return y_p
+
 
 y_pred_array = convert_inputs(y_pred)
 accuracy, precision, recall, auc = compute_metrics(y_pred_array, y_test)
