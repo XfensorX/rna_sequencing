@@ -16,6 +16,7 @@ class Metrics:
     precision: float
     recall: float
     auc: float
+    f1_score: float
 
     def __init__(
         self, y_predicted: npt.NDArray[np.float32], y_actual: npt.NDArray[np.float32]
@@ -31,6 +32,7 @@ class Metrics:
         self.auc = metrics.roc_auc_score(
             y_actual, y_predicted, average="macro", multi_class="ovr"
         )
+        self.f1_score = metrics.f1_score(y_actual, y_predicted, average="micro")
 
     def __iter__(self) -> Iterator[tuple[str, float]]:
         """
