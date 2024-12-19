@@ -19,20 +19,10 @@ class Logger:
     """
 
     def __init__(self, log_method: LogMethod):
-        """
-        Initializes the Logger with a specified logging method.
 
-        Args:
-            log_method (LogMethod): A callable that takes a name and a value,
-                                    used for logging the data.
-        """
         self.log = log_method
 
     def log_metrics(self, metrics: Metrics):
-        """
-        Iterates over the provided metrics and logs each metric with
-        a prefixed string "metrics".
-        """
         for name, value in metrics:
             self.log(f"metrics/{name}", value)
 
@@ -41,8 +31,6 @@ class Logger:
         cls, neptune_logger: NeptuneLogger, logging_path: str
     ) -> "Logger":
         """
-        Factory method to create a Logger using a Pytorch Lightning Neptune logger backend.
-
         Args:
             neptune_logger (NeptuneLogger): The Lightning Neptune logger instance.
             logging_path (str): The path where logs should be stored in the Neptune experiment.
@@ -56,8 +44,6 @@ class Logger:
     @classmethod
     def for_neptune(cls, run: neptune.Run, logging_path: str) -> "Logger":
         """
-        Factory method to create a Logger for a Neptune Run.
-
         Args:
             run (neptune.Run): A Neptune Run instance to use for logging.
             logging_path (str): The path where logs should be stored in the Neptune experiment.
@@ -70,7 +56,4 @@ class Logger:
 
     @classmethod
     def for_stdout(cls) -> "Logger":
-        """
-        Factory method to create a Logger that logs to the standard output.
-        """
         return Logger(lambda name, value: print(f"{name}: {value}"))
