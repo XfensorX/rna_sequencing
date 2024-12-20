@@ -1,5 +1,10 @@
 defaults:
-    - training: default
-    - data: default
-    - neptune: default
-    - framework: default
+    - _self_
+
+accelerator: mps
+environment_file: .env
+neptune_project: 'JPL/rna-sequencing'
+log_every_n_steps: 1
+max_epochs: -1
+num_workers: 0
+shuffle_train_split: True

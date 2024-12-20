@@ -1,4 +1,5 @@
 name: Basic Linear
+batch_size: 256
 
 model:
     _target_: models.linear.AdaptableDenseModel

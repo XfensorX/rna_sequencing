@@ -40,3 +40,5 @@ class Metrics:
         of the form (name, value).
         """
         yield from dataclasses.asdict(self).items()
+
+    def as_dict
