@@ -1,5 +1,8 @@
 ## CUSTOM
 
+# Ignore Models
+*.pth
+
 # Ignore everything in the 'data' directory
 data/**
 
