@@ -22,17 +22,17 @@ class Metrics:
         self, y_predicted: npt.NDArray[np.float32], y_actual: npt.NDArray[np.float32]
     ):
         """
-        Initializes the Metrics object by calculating various metrics using the input arrays.
+        Initializes the Metrics object by calculating various metrics using the input arrays. This function uses macro averaging for precision, recall, and f1 score.
         """
         self.accuracy = metrics.accuracy_score(y_actual, y_predicted)
         self.precision = metrics.precision_score(
-            y_actual, y_predicted, average="micro", zero_division=0
+            y_actual, y_predicted, average="macro", zero_division=0
         )
-        self.recall = metrics.recall_score(y_actual, y_predicted, average="micro")
+        self.recall = metrics.recall_score(y_actual, y_predicted, average="macro")
         self.auc = metrics.roc_auc_score(
-            y_actual, y_predicted, average="macro", multi_class="ovr"
+            y_actual, y_predicted, average="macro", multi_class="ovo"
         )
-        self.f1_score = metrics.f1_score(y_actual, y_predicted, average="micro")
+        self.f1_score = metrics.f1_score(y_actual, y_predicted, average="macro")
 
     def __iter__(self) -> Iterator[tuple[str, float]]:
         """
@@ -41,4 +41,8 @@ class Metrics:
         """
         yield from dataclasses.asdict(self).items()
 
-    def as_dict
+    def as_dict(self) -> dict[str, float]:
+        """
+        Returns the metrics as a dictionary.
+        """
+        return dataclasses.asdict(self)
