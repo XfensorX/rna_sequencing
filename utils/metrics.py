@@ -24,15 +24,60 @@ class Metrics:
         """
         Initializes the Metrics object by calculating various metrics using the input arrays. This function uses macro averaging for precision, recall, and f1 score.
         """
-        self.accuracy = metrics.accuracy_score(y_actual, y_predicted)
-        self.precision = metrics.precision_score(
+        self.accuracy = self.calculate_accuracy(y_actual, y_predicted)
+        self.precision = self.calculate_precision(y_actual, y_predicted)
+        self.recall = self.calculate_recall(y_actual, y_predicted)
+        self.auc = self.calculate_auc(y_actual, y_predicted)
+        self.f1_score = self.calculate_f1_score(y_actual, y_predicted)
+
+    @staticmethod
+    def calculate_accuracy(
+        y_actual: npt.NDArray[np.float32], y_predicted: npt.NDArray[np.float32]
+    ) -> float:
+        """
+        Calculates the accuracy score.
+        """
+        return metrics.accuracy_score(y_actual, y_predicted)
+
+    @staticmethod
+    def calculate_precision(
+        y_actual: npt.NDArray[np.float32], y_predicted: npt.NDArray[np.float32]
+    ) -> float:
+        """
+        Calculates the precision score.
+        """
+        return metrics.precision_score(
             y_actual, y_predicted, average="macro", zero_division=0
         )
-        self.recall = metrics.recall_score(y_actual, y_predicted, average="macro")
-        self.auc = metrics.roc_auc_score(
+
+    @staticmethod
+    def calculate_recall(
+        y_actual: npt.NDArray[np.float32], y_predicted: npt.NDArray[np.float32]
+    ) -> float:
+        """
+        Calculates the recall score.
+        """
+        return metrics.recall_score(y_actual, y_predicted, average="macro")
+
+    @staticmethod
+    def calculate_auc(
+        y_actual: npt.NDArray[np.float32], y_predicted: npt.NDArray[np.float32]
+    ) -> float:
+        """
+        Calculates the AUC score.
+        """
+        return metrics.roc_auc_score(
             y_actual, y_predicted, average="macro", multi_class="ovo"
         )
-        self.f1_score = metrics.f1_score(y_actual, y_predicted, average="macro")
+
+    @staticmethod
+    def calculate_f1_score(
+        y_actual: npt.NDArray[np.float32], y_predicted: npt.NDArray[np.float32]
+    ) -> float:
+        """
+        Calculates the F1 score.
+        """
+        return metrics.f1_score(y_actual, y_predicted, average="macro")
 
     def __iter__(self) -> Iterator[tuple[str, float]]:
         """
