@@ -59,7 +59,9 @@ class Metrics:
         """
         Calculates the recall score.
         """
-        return metrics.recall_score(y_actual, y_predicted, average="macro")
+        return metrics.recall_score(
+            y_actual, y_predicted, average="macro", zero_division=0
+        )
 
     @staticmethod
     def calculate_auc(
@@ -69,7 +71,10 @@ class Metrics:
         Calculates the AUC score.
         """
         return metrics.roc_auc_score(
-            y_actual, y_predicted, average="macro", multi_class="ovo"
+            y_actual,
+            y_predicted,
+            average="macro",
+            multi_class="ovo",
         )
 
     @staticmethod
