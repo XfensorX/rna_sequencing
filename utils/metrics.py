@@ -5,6 +5,8 @@ import numpy as np
 import numpy.typing as npt
 from sklearn import metrics
 
+from sklearn.exceptions import UndefinedMetricWarning
+
 
 @dataclasses.dataclass
 class Metrics:
@@ -24,14 +26,18 @@ class Metrics:
         """
         Initializes the Metrics object by calculating various metrics using the input arrays.
         """
-        self.accuracy = metrics.accuracy_score(y_actual, y_predicted)
+        self.accuracy = metrics.accuracy_score(y_actual, y_predicted > 0.5)
         self.precision = metrics.precision_score(
             y_actual, y_predicted, average="micro", zero_division=0
         )
         self.recall = metrics.recall_score(y_actual, y_predicted, average="micro")
-        self.auc = metrics.roc_auc_score(
-            y_actual, y_predicted, average="macro", multi_class="ovr"
-        )
+        try:
+            self.auc = metrics.roc_auc_score(
+                y_actual, y_predicted, average="macro", multi_class="ovr"
+            )
+        except UndefinedMetricWarning:
+            self.auc = 0.5
+
         self.f1_score = metrics.f1_score(y_actual, y_predicted, average="micro")
 
     def __iter__(self) -> Iterator[tuple[str, float]]:
@@ -40,5 +46,3 @@ class Metrics:
         of the form (name, value).
         """
         yield from dataclasses.asdict(self).items()
-
-    def as_dict

@@ -1,0 +1,29 @@
+name: Big Linear With Sigmoid and Layer Norm
+batch_size: 256
+
+model:
+    _target_: models.linear.AdaptableDenseModel
+    input_dim: 5045
+    learning_rate: 0.1
+    activation_function: sigmoid
+    hidden_layer_sizes:
+        [
+            5000,
+            5000,
+            3000,
+            1000,
+            300,
+            300,
+            150,
+            300,
+            300,
+            150,
+            300,
+            300,
+            150,
+            300,
+            300,
+            150,
+        ]
+    use_layer_norm: True
+    output_dim: 105

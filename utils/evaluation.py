@@ -54,13 +54,14 @@ def evaluate(
     return metrics
 
 
-def evaluate_lightning_module(model: pl.LightningModule, neptune_logger: NeptuneLogger):
+def evaluate_lightning_module(model: pl.LightningModule, x_transform=None):
     def evaluate_from_dataframe(X: pd.DataFrame):
         X_tensor = torch.tensor(X.to_numpy())
+        if x_transform:
+            X_tensor = x_transform(X_tensor)
         y_pred_tensor = model(X_tensor)
-        return pd.DataFrame(y_pred_tensor.detach().cpu().to(torch.int32))
+        return pd.DataFrame(
+            y_pred_tensor.detach().cpu().to(torch.int32).sigmoid().round().to(torch.int)
+        )
 
-    metrics = evaluate(evaluate_from_dataframe)
-
-    for key, value in metrics:
-        neptune_logger.experiment[key] = value
+    return evaluate(evaluate_from_dataframe)

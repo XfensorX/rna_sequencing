@@ -45,9 +45,16 @@ class DataConfig(typing.NamedTuple):
     batch_size: int
     num_workers: int
     shuffle_train_split: bool
+    persistent_workers: bool
 
 
-def get_data_loader(split: ValidSplit, config: DataConfig, logger):
+def get_data_loader(
+    split: ValidSplit,
+    config: DataConfig,
+    logger,
+    x_only: bool = False,
+    transform_x=None,
+):
     if split not in typing.get_args(ValidSplit):
         raise ValueError("Split not available.")
 
@@ -63,11 +70,18 @@ def get_data_loader(split: ValidSplit, config: DataConfig, logger):
         )
     )
 
-    dataset = torch.utils.data.TensorDataset(X, y)
+    if transform_x:
+        X = transform_x(X)
+
+    if x_only:
+        dataset = torch.utils.data.TensorDataset(X)
+    else:
+        dataset = torch.utils.data.TensorDataset(X, y)
 
     data_loader = torch.utils.data.DataLoader(
         dataset,
         config.batch_size,
+        persistent_workers=config.persistent_workers,
         shuffle=config.shuffle_train_split and split == "train",
         num_workers=config.num_workers,
     )
