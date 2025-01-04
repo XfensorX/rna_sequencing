@@ -73,6 +73,7 @@ msgpack==1.1.0
 multidict==6.1.0
 natsort==8.4.0
 neptune==1.13.0
+neptune-optuna==1.4.1
 neptune-pytorch==2.0.0
 nest-asyncio==1.6.0
 networkx==3.4.2
@@ -88,6 +89,7 @@ patsy==1.0.1
 pexpect==4.9.0
 pillow==11.0.0
 platformdirs==4.3.6
+plotly==5.24.1
 prompt_toolkit==3.0.48
 propcache==0.2.1
 protobuf==5.29.1
@@ -126,6 +128,7 @@ statsmodels==0.14.4
 stdlib-list==0.11.0
 swagger-spec-validator==3.0.4
 sympy==1.13.1
+tenacity==9.0.0
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
 threadpoolctl==3.5.0
