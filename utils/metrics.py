@@ -5,6 +5,8 @@ import numpy as np
 import numpy.typing as npt
 from sklearn import metrics
 
+from sklearn.exceptions import UndefinedMetricWarning
+
 
 @dataclasses.dataclass
 class Metrics:

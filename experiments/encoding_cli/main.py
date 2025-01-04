@@ -2,6 +2,7 @@ import os
 import sys
 
 import dotenv
+import torch
 import hydra
 import pytorch_lightning as pl
 from omegaconf import DictConfig
@@ -16,6 +17,12 @@ from utils.evaluation import evaluate_lightning_module
 
 @hydra.main(config_path="config", config_name="config.yaml", version_base="1.3")
 def main(config: DictConfig):
+
+    def x_transform(x: torch.Tensor):
+        if config.experiment.shift_input:
+            return x - 0.5
+
+        return x
 
     pl.seed_everything(42, workers=True)
     dotenv.load_dotenv(config.environment_file)
@@ -34,23 +41,36 @@ def main(config: DictConfig):
         accelerator=config.accelerator,
         deterministic=True,
     )
+
     data_config = DataConfig(
         config.experiment.batch_size,
         config.num_workers,
         config.shuffle_train_split,
+        config.persistent_workers,
     )
-    train_loader = get_data_loader("train", data_config, logger=neptune_logger)
+    train_loader = get_data_loader(
+        "train",
+        data_config,
+        logger=neptune_logger,
+        x_only=config.experiment.x_only,
+        x_transform=x_transform,
+    )
     val_loader = get_data_loader(
         "val",
         data_config,
         logger=neptune_logger,
+        x_only=config.experiment.x_only,
+        x_transform=x_transform,
     )
 
-    trainer.fit(model, train_loader, val_loader)
+    try:
+        trainer.fit(model, train_loader, val_loader)
+    finally:
+        metrics = evaluate_lightning_module(model, x_transform=x_transform)
+        for key, value in metrics:
+            neptune_logger.experiment[f"evaluation/metrics/{key}"] = value
 
-    evaluate_lightning_module(model, neptune_logger)
-
-    neptune_logger.log_model_summary(model=model, max_depth=-1)
+        neptune_logger.log_model_summary(model=model, max_depth=-1)
 
 
 if __name__ == "__main__":
