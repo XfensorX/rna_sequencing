@@ -12,7 +12,7 @@ class AdaptableDenseModel(pl.LightningModule):
         hidden_layer_sizes,
         output_dim,
         use_dropout: bool = False,
-        dropout_prob: float = 0.5,
+        dropout_prob: float = 0.0,
         use_layer_norm: bool = False,
         use_batch_norm: bool = False,
         learning_rate: float = 0.001,
@@ -82,7 +82,7 @@ class AdaptableDenseModel(pl.LightningModule):
         )
 
         metrics = Metrics(logits, targets)
-        self.logger.log_metrics({f"validation/metrics/{k}": v for k, v in metrics})
+        self.log_dict({f"validation/metrics/{k}": v for k, v in metrics})
 
         self.validation_step_outputs.clear()
 

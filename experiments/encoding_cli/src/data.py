@@ -85,9 +85,12 @@ def get_data_loader(
         shuffle=config.shuffle_train_split and split == "train",
         num_workers=config.num_workers,
     )
+    # logger.log_hyperparams(metrics=generate_log_data(dataset))
 
-    for key, value in generate_log_data(dataset).items():
-        logger.experiment[f"data/{split}/info/{key}"].log(value)
-    logger.experiment[f"data/{split}/config"].log(str(config))
+    # With NEPTUNE LOGGER:
+
+    # for key, value in generate_log_data(dataset).items():
+    #    logger.experiment[f"data/{split}/info/{key}"].log(value)
+    # logger.experiment[f"data/{split}/config"].log(str(config))
 
     return data_loader

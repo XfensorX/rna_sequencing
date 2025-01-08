@@ -1,5 +1,4 @@
 defaults:
-    - experiment: default
     - _self_
 
 accelerator: mps

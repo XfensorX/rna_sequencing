@@ -5,3 +5,5 @@ model:
     _target_: models.baseline.Constant
     constant_value: 1.0
     output_dim: 105
+
+x_only: False

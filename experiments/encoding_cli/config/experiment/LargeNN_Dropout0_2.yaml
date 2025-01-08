@@ -1,0 +1,29 @@
+name: Large NN Droupout 0.2
+batch_size: 256
+
+model:
+    _target_: models.linear.AdaptableDenseModel
+    input_dim: 5045
+    learning_rate: 0.001
+    hidden_layer_sizes:
+        [
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            5045,
+            2000,
+            1000,
+            300,
+        ]
+    output_dim: 105
+    dropout_prob: 0.2
+    use_dropout: True
+    use_batch_norm: False
+x_only: False
