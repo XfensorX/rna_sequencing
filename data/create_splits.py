@@ -72,4 +72,5 @@ if __name__ == "__main__":
             filepath = f"./splits/{stage_name}/{name}_pandas.pck"
             directory = os.path.dirname(filepath)
             os.makedirs(directory, exist_ok=True)
+            print(f"{stage_name}:{name}: {len(data)}")
             data.to_pickle(filepath)

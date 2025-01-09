@@ -27,3 +27,4 @@ model:
         ]
     use_layer_norm: True
     output_dim: 105
+x_only: False

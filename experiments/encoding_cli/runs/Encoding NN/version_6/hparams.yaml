@@ -1,0 +1,21 @@
+accuracy: 0.0
+auc: !!python/object/apply:numpy._core.multiarray.scalar
+- !!python/object/apply:numpy.dtype
+  args:
+  - f8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  4rqe7AZe4T8=
+f1_score: 0.03212510972793913
+precision: 0.019823539531681224
+recall: 0.19416550074616812

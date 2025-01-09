@@ -52,7 +52,7 @@ class AdaptableDenseModel(pl.LightningModule):
 
         self.layers = torch.nn.Sequential(*layers)
 
-        self.criterion = torch.nn.CrossEntropyLoss()
+        self.criterion = torch.nn.BCEWithLogitsLoss(reduction="mean")
 
         self.validation_step_outputs = []
 
