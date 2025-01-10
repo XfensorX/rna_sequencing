@@ -1,0 +1,13 @@
+name: Julius Fancy NN
+batch_size: 256
+
+model:
+    _target_: models.linear.AdaptableDenseModel
+    input_dim: 5045
+    learning_rate: 0.000056
+    hidden_layer_sizes: [3934, 2246, 1955, 745, 702]
+    output_dim: 105
+    use_dropout: True
+    dropout_prob: 0.26
+    use_batch_norm: False
+x_only: False
