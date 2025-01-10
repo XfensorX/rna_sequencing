@@ -5,6 +5,7 @@
 
 # Ignore everything in the 'data' directory
 data/**
+evaluation/NeuronalNetwork/data/**
 
 # Allow .py and .ipynb files in the 'data' directory
 !**/*.py
