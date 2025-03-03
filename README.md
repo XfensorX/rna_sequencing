@@ -1,6 +1,6 @@
 > ⚠️ **Note:** 
 > Pressure makes diamonds, but it doesn’t always make perfectly structured code.
-> A full refactoring is still on the to-do list—please note that this project doesn’t reflect my views on coding standards.
+> A full refactoring is still on the to-do list—please note that this project doesn’t reflect our views on coding standards.
 
 # rna_sequencing
 
